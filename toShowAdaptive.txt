@@ -1,0 +1,181 @@
+
+
+
+PS Представлена только часть кода, полный код можно посмотреть по ссылке https://github.com/AnneBirdie/mySite/tree/main
+
+
+  
+  
+HTMLб...............................................................................................................................................
+<div class="block_2_slider">
+    <div id = "slider_certs">
+        <div class="hover-effect-btn">
+          <img class = "img_cert" src="images/cert_1.png" alt="certificate">
+          <div class="button"><a target = "_blank" href="https://stepik.org/cert/2433757">посмотреть</a></div>
+        </div>
+    </div>
+</div>
+
+CSS...............................................................................................................................................
+  for landscape..............................................................................................................................
+.block_2_slider{
+  display: flex;
+  justify-content: start;
+  width: 62vw;
+  height: 40vh;
+  overflow: hidden;
+}
+
+#slider_certs{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 40vh;
+  
+  width: 310vw;
+  position: relative;
+  left: 0;
+  transition: all ease 1s;
+}
+
+#slider_certs img{
+  left: 0;
+  width: 30vw;
+  height: 40vh;
+  border-radius: 10px;
+  transition: all ease 1s;
+}  
+.hover-effect-btn {
+  position: relative;
+  width: 30vw;
+  height: 40vh;
+  border-radius: 10px;
+  margin-right: 1vw;
+  transition: all ease 1s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  background-color: rgba(220, 220, 220, 0.623);
+  position: absolute;
+  width: 100%;
+  height: 30%;
+  left:0;
+  top: 35%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+.button a {
+  transition: all ease 1s;
+  text-align: center;
+  color: rgba(39, 39, 39, 1);
+  z-index: 1; 
+}
+
+.button a:hover {
+  text-decoration: underline;
+}
+.hover-effect-btn:hover .button {
+  opacity: 1;
+}
+
+.hover-effect-btn:hover .img_cert {
+  filter: brightness(60%);
+}
+
+for portrait .................................................................................................................................................
+#slider_certs{
+    width: 80vw;
+    height: 320vh;
+    left: 0;
+    top: 0;
+    align-items: flex-start;
+  
+    justify-content: space-around;
+    flex-direction: column;
+  }
+
+  #slider_portfolio{
+    height: 63vh;
+    width: 100%;
+    justify-content: start;
+    flex-direction: column;
+    top: 0;
+    align-items: center;
+
+  }
+
+  #slider_certs img{
+    width: 80vw;
+    height: 30vh;       
+  }
+  .hover-effect-btn{
+
+    width: 80vw;
+    height: 30vh;
+  }
+
+JS............................................................................................................................................................
+    if (window.matchMedia("(orientation: landscape)").matches) {
+function slider_cert_horizontally(){
+    let offset = 0;
+    let slider_certs = document.getElementById('slider_certs');
+    let cert_back = document.getElementById('cert_back');
+    let cert_next = document.getElementById('cert_next');
+    let img_cert = document.getElementsByClassName('img_cert');
+    let max = img_cert.length * 31;
+
+    cert_next.addEventListener('click', function(){
+        offset += 31;
+
+        if (offset >= max-31){
+            offset = 0;
+        }
+        slider_certs.style.left = -offset + "vw";
+    });
+
+    cert_back.addEventListener('click', function(){
+        offset -= 31;
+
+        if (offset < 0){
+            offset = max - 62;
+        }
+        slider_certs.style.left = -offset + "vw";
+    });
+}
+slider_cert_horizontally();
+}else{
+    function slider_cert_vertically(){
+        let offset = 0;
+        let slider_certs = document.getElementById('slider_certs');
+        let cert_back = document.getElementById('cert_back');
+        let cert_next = document.getElementById('cert_next');
+        let img_cert = document.getElementsByClassName('img_cert');
+        let max = img_cert.length * 32;
+
+        cert_next.addEventListener('click', function(){
+            offset += 32;
+    
+            if (offset >= max){
+                offset = 0;
+            }
+            slider_certs.style.top = -offset + "vh";
+        });
+        cert_back.addEventListener('click', function(){
+            offset -= 32;
+    
+            if (offset < 0){
+                offset = max - 32;
+            }
+            slider_certs.style.top = -offset + "vh";
+        });
+    }
+    slider_cert_vertically();
+}
